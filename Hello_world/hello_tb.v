@@ -31,5 +31,5 @@ endmodule
 
 // Para ejecutar la prueba se corren los siguientes comandos:
 // iverilog -o hello_tb.vvp hello_tb.v  --> Esto sintetizar el testbench y lo guarda en el archivo *.vvp
-// vvp .\hello_tb.vvp                   --> Este comando efectivamente ejecuta la simulacion, crea un archivo *.vcd
+// vvp hello_tb.vvp                     --> Este comando efectivamente ejecuta la simulacion, crea un archivo *.vcd
 // gtkwave                              --> Ejecuta el visualizador de señales, se debe cargar el archivo *.vcd para verla
