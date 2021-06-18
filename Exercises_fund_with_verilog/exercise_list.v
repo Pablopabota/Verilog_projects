@@ -34,6 +34,19 @@ endmodule
 // f1 = x1x3 + x2x3 + x3x4 + x1x2 + x1x4
 // f2 = (x1 + x3) · (x1 + x2 + x4) · (x2 + x3 + x4)
 // (b) Use functional simulation to prove that f1 = f2.
+module exercise_2_64_a (x1, x2, x3, x4, f1);
+    input x1, x2, x3, x4;
+    output f1;
+
+    and(y1, x1, x3);
+    and(y2, x2, x3);
+    and(y3, x3, x4);
+    and(y4, x1, x2);
+    and(y5, x1, x4);
+
+    or(f1, y1, y2, y3, y4, y5);
+
+endmodule
 
 // 2.65 Consider the following Verilog statements
 // f1 = (x1 & x3) | (∼x1 & ∼x3) | (x2 & x4) | (∼x2 & ∼x4);
