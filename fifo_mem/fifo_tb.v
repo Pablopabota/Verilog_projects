@@ -32,7 +32,7 @@ module sim_fifo:
 
 initial begin
     $dumpfile("fifo_tb.vcd");
-    $dumpvars(2.uut);
+    $dumpvars(2,uut);
     clk = 0;
     rst = {1'b1};
     push = 0;
