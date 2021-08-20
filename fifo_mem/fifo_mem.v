@@ -16,47 +16,32 @@ module fifo_counter #(
 
     // Señales de salida
     output full, pndng;
-    output reg[$clog2(depth)-1:0] pointer_in;   // Indica la posicion a guardar datos
     output reg[$clog2(depth)-1:0] pointer_out;  // Indica la posicion a leer datos
 
     //  Señales internas
     reg [$clog2(depth)-1:0] count;  // Indica la cantidad de registros en el FIFO
 
-    assign pndng = (count > 0) ? 1 : 0;     // Si hay algun dato en la memoria, HIGH pndng, sino LOW
-    assign full = (count == depth) ? 1 : 0; // Si la cuenta alcanza la profundidad, HIGH full, sino LOW
+    // Defino dos maquinas de estado, una para el pointer in y otra para el pointer out
+    output reg [$clog2(depth)-1:0] pointer_in;  // El estado es la posicion a guardar
+    reg [$clog2(depth)-1:0] state_in;  // El estado es la posicion a guardar
+    reg [$clog2(depth)-1:0] nxt_state_in;  // El estado es la posicion a guardar
 
-// revisar maquina de estado
-always @(posedge clk or negedge rst) begin
+    wire c;
 
-    if(!rst) begin
-        pointer_in <= 0;
-        pointer_out <= 0;
-        full <= 0;
-        pndng <= 0;
-        count <= 0;
-    end
+    // Logica de siguiente estado
+    addern #(.bits(depth)) nxt_state_gen (.carryin(push), .A(state_in), .B(0), .carryout(c), .S(nxt_state_in));
 
-    if(push == 1) begin
-        if (pointer_in == depth) begin
-            pointer_in = 0;
-        end
+    // Aplico el cambio de estado
+    always @(posedge clk or negedge rst) begin
+        if (~rst) state_in <= 0;
         else begin
-            pointer_in = pointer_in + 1;
+            state_in = nxt_state_in;
         end
-
-        count = count + 1;
     end
-    else if (pop == 1) begin
-        if (pointer_out == depth) begin
-            pointer_out = 0;
-        end
-        else begin
-            pointer_out = pointer_out + 1;
-        end
 
-        count = count - 1;
-    end
-end
+    // Logica de salida
+    // Al ser una maquina de Moore, la salida depende del estado
+    assign pointer_in = state_in;
 
 endmodule
 
@@ -167,5 +152,54 @@ module fifo #(
     // demuxnm #(bits, depth) U2(.ctrl(pointer_in), .in_n(Din), .out_nm(out_nm_mux));
     // d_ff_n #(bits) U3(.clk(clk), .Din_n(out_nm_mux), .Dout_n(in_nm_demux));
     // muxnm #(bits, depth) U4(.ctrl(pointer_out), .in_nm(in_nm_demux), .out_n(Dout));
+
+endmodule
+
+// Full-Adder
+module fulladd (
+    cin,    //  Carry-in
+    a,      //  Bit a sumar
+    b,      //  Bit a sumar
+    s,      //  Suma de los bits
+    cout    //  Carry-out
+);
+    input a, b, cin;
+    output s, cout;
+
+    // Se pueden asignar varias 'variables' separando cada asignacion con una coma en vez de punto-y-coma
+    assign  s = a ^ b ^ cin,
+            cout = (a & b) | (a & cin) | (b & cin);
+
+endmodule
+
+// En este caso se instancia n-veces un modulo por medio del bloque 'generate'
+// Cada instancia del modulo 'fulladd' sera renombrado addbit[k].stage
+module addern #(
+    parameter bits = 4
+)
+(
+    carryin,    // Carry-in (1-bit)
+    A,          // Vector/Numero a sumar
+    B,          // Vector/Numero a sumar
+    S,          // Suma de los vectores/numeros
+    carryout    // Carry-out (1-bit)
+);
+    input carryin;
+    input [bits–1:0] A, B;
+
+    output [bits–1:0] S;
+    output carryout;
+    
+    wire [bits:0] C;    // Esta instancia sirve para unir los carrys. Tiene 1 bit mas que lo demas para el carry-out
+
+    genvar i;   // Tipo de variable similar a integer, pero unicamente positivo y utilizable solo en bloques generate
+    assign C[0] = carryin;
+    assign carryout = C[bits];
+
+    generate    // Aca instancio bit-a-bit cada sumador y realizo la suma del numero
+        for (i = 0; i <= bits–1; i = i+1) begin:addbit    // Aca se renombra cada instancia
+            fulladd stage (C[i], A[i], B[i], S[i], C[i+1]);
+        end
+    endgenerate
 
 endmodule
