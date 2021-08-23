@@ -1,0 +1,30 @@
+$date
+	Mon Aug 23 01:54:47 2021
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	100ps
+$end
+$scope module comprn_tb $end
+$scope module uut $end
+$var wire 16 ! A [15:0] $end
+$var wire 16 " B [15:0] $end
+$var wire 1 # O $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0#
+b1100 "
+b10000 !
+$end
+#100
+1#
+b10000 "
+#200
+0#
+b10101 "
+#300

@@ -29,7 +29,7 @@ module fifo_counter #(
     wire c;
 
     // Logica de siguiente estado
-    addern #(.bits(depth)) nxt_state_gen (.carryin(push), .A(state_in), .B(0), .carryout(c), .S(nxt_state_in));
+    //addern #(.bits(depth)) nxt_state_gen (.carryin(push), .A(state_in), .B('b0), .carryout(c), .Sum(nxt_state_in));
 
     // Aplico el cambio de estado
     always @(posedge clk or negedge rst) begin
@@ -167,27 +167,28 @@ module fulladd (
     output s, cout;
 
     // Se pueden asignar varias 'variables' separando cada asignacion con una coma en vez de punto-y-coma
-    assign  s = a ^ b ^ cin,
-            cout = (a & b) | (a & cin) | (b & cin);
+    assign s = (a ^ b) ^ cin;
+    assign cout = (b & cin) | (a & b) | (a & cin);
 
 endmodule
 
 // En este caso se instancia n-veces un modulo por medio del bloque 'generate'
 // Cada instancia del modulo 'fulladd' sera renombrado addbit[k].stage
 module addern #(
-    parameter bits = 4
+    parameter bits = 8  // Parametro para largo del registro
 )
 (
     carryin,    // Carry-in (1-bit)
     A,          // Vector/Numero a sumar
     B,          // Vector/Numero a sumar
-    S,          // Suma de los vectores/numeros
+    Sum,        // Suma de los vectores/numeros
     carryout    // Carry-out (1-bit)
 );
     input carryin;
-    input [bits–1:0] A, B;
+    input [bits–1:0] A;
+    input [bits–1:0] B;
 
-    output [bits–1:0] S;
+    output [bits–1:0] Sum;
     output carryout;
     
     wire [bits:0] C;    // Esta instancia sirve para unir los carrys. Tiene 1 bit mas que lo demas para el carry-out
@@ -198,7 +199,7 @@ module addern #(
 
     generate    // Aca instancio bit-a-bit cada sumador y realizo la suma del numero
         for (i = 0; i <= bits–1; i = i+1) begin:addbit    // Aca se renombra cada instancia
-            fulladd stage (C[i], A[i], B[i], S[i], C[i+1]);
+            fulladd stage (C[i], A[i], B[i], Sum[i], C[i+1]);
         end
     endgenerate
 
