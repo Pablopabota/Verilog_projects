@@ -193,13 +193,13 @@ module addern #(
     
     wire [bits:0] C;    // Esta instancia sirve para unir los carrys. Tiene 1 bit mas que lo demas para el carry-out
 
-    genvar i;   // Tipo de variable similar a integer, pero unicamente positivo y utilizable solo en bloques generate
+    genvar index;   // Tipo de variable similar a integer, pero unicamente positivo y utilizable solo en bloques generate
     assign C[0] = carryin;
     assign carryout = C[bits];
 
     generate    // Aca instancio bit-a-bit cada sumador y realizo la suma del numero
-        for (i = 0; i <= bits–1; i = i+1) begin:addbit    // Aca se renombra cada instancia
-            fulladd stage (C[i], A[i], B[i], Sum[i], C[i+1]);
+        for (index = 0; index <= bits–1; index = index+1) begin:addbit    // Aca se renombra cada instancia
+            fulladd stage (C[index], A[index], B[index], Sum[index], C[index+1]);
         end
     endgenerate
 
