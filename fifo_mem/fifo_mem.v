@@ -185,10 +185,10 @@ module addern #(
     carryout    // Carry-out (1-bit)
 );
     input carryin;
-    input [bits–1:0] A;
-    input [bits–1:0] B;
+    input [bits-1:0] A;
+    input [bits-1:0] B;
 
-    output [bits–1:0] Sum;
+    output [bits-1:0] Sum;
     output carryout;
     
     wire [bits:0] C;    // Esta instancia sirve para unir los carrys. Tiene 1 bit mas que lo demas para el carry-out
@@ -198,7 +198,7 @@ module addern #(
     assign carryout = C[bits];
 
     generate    // Aca instancio bit-a-bit cada sumador y realizo la suma del numero
-        for (index = 0; index <= bits–1; index = index+1) begin:addbit    // Aca se renombra cada instancia
+      for (index = 0; index <= bits-1; index = index+1) begin:addbit    // Aca se renombra cada instancia
             fulladd stage (C[index], A[index], B[index], Sum[index], C[index+1]);
         end
     endgenerate
