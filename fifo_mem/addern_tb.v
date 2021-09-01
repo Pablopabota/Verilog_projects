@@ -22,10 +22,11 @@ module addern_tb;
     );
 
     initial begin
-
+        // Monitoreo de variables
         $dumpfile("addern_tb.vcd");
         $dumpvars(2,uut);
         $monitor("(time: %1d) A=%d B=%d, Cin=%d, Sum=%d, Cout=%d", $time, A_number, B_number, cin, Sum, cout);
+        
         // Inicializo las variables/Entradas
         A_number = {`BITS{1'b0}};
         B_number = {`BITS{1'b0}};
