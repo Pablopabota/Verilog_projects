@@ -16,26 +16,28 @@ module fifo_counter #(
 
     // Señales de salida
     output full, pndng;
-    output reg[$clog2(depth)-1:0] pointer_out;  // Indica la posicion a leer datos
+    output reg [$clog2(depth)-1:0] pointer_in;  // El estado es la posicion a guardar
+    output reg [$clog2(depth)-1:0] pointer_out;  // Indica la posicion a leer datos
 
     //  Señales internas
-    reg [$clog2(depth)-1:0] count;  // Indica la cantidad de registros en el FIFO
+    // reg [$clog2(depth)-1:0] count;  // Indica la cantidad de registros en el FIFO
 
     // Defino dos maquinas de estado, una para el pointer in y otra para el pointer out
-    output reg [$clog2(depth)-1:0] pointer_in;  // El estado es la posicion a guardar
     reg [$clog2(depth)-1:0] state_in;  // El estado es la posicion a guardar
     reg [$clog2(depth)-1:0] nxt_state_in;  // El estado es la posicion a guardar
 
     wire c;
 
     // Logica de siguiente estado
-    //addern #(.bits(depth)) nxt_state_gen (.carryin(push), .A(state_in), .B('b0), .carryout(c), .Sum(nxt_state_in));
+    addern #(.bits( $clog2(depth) )) nxt_state_gen (.carryin(push), .A(state_in), .B({$clog2(depth){1'b0}}), .carryout(c), .Sum(nxt_state_in));
 
     // Aplico el cambio de estado
     always @(posedge clk or negedge rst) begin
-        if (~rst) state_in <= 0;
+        if (~rst) begin
+            state_in <= 0;
+        end
         else begin
-            state_in = nxt_state_in;
+            state_in <= nxt_state_in;
         end
     end
 
