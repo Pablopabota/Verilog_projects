@@ -14,11 +14,11 @@ module addern_tb;
 
     addern #(.bits(`BITS)) uut
     (
-        .carryin(cin),    // Carry-in (1-bit)
-        .A(A_number),          // Vector/Numero a sumar
-        .B(B_number),          // Vector/Numero a sumar
-        .Sum(Sum),        // Suma de los vectores/numeros
-        .carryout(cout)    // Carry-out (1-bit)
+        .carryin(cin),      // Carry-in (1-bit)
+        .A(A_number),       // Vector/Numero a sumar
+        .B(B_number),       // Vector/Numero a sumar
+        .Sum(Sum),          // Suma de los vectores/numeros
+        .carryout(cout)     // Carry-out (1-bit)
     );
 
     initial begin
