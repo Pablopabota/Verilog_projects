@@ -15,35 +15,61 @@ module fifo_counter #(
     input clk, push, pop, rst;
 
     // Señales de salida
-    output full, pndng;
+    output reg full, pndng;
     output reg [$clog2(depth)-1:0] pointer_in;  // El estado es la posicion a guardar
     output reg [$clog2(depth)-1:0] pointer_out;  // Indica la posicion a leer datos
 
     //  Señales internas
-    // reg [$clog2(depth)-1:0] count;  // Indica la cantidad de registros en el FIFO
+    reg [$clog2(depth)-1:0] count;  // Indica la cantidad de registros en el FIFO
+    reg [$clog2(depth)-1:0] state_count;       // El estado es la posicion a guardar
+    reg [$clog2(depth)-1:0] nxt_state_count;   // El estado es la posicion a guardar
 
     // Defino dos maquinas de estado, una para el pointer in y otra para el pointer out
-    reg [$clog2(depth)-1:0] state_in;  // El estado es la posicion a guardar
-    reg [$clog2(depth)-1:0] nxt_state_in;  // El estado es la posicion a guardar
+    reg [$clog2(depth)-1:0] state_in;       // El estado es la posicion a guardar
+    reg [$clog2(depth)-1:0] nxt_state_in;   // El estado es la posicion a guardar
+    reg [$clog2(depth)-1:0] state_out;      // El estado es la posicion a guardar
+    reg [$clog2(depth)-1:0] nxt_state_out;  // El estado es la posicion a guardar
 
     wire c;
+    wire d;
+    wire e;
 
-    // Logica de siguiente estado
-    addern #(.bits( $clog2(depth) )) nxt_state_gen (.carryin(push), .A(state_in), .B({$clog2(depth){1'b0}}), .carryout(c), .Sum(nxt_state_in));
+    // Logica de siguiente estado en el push
+    addern #(.bits( $clog2(depth) )) nxt_state_in_gen (.carryin(push), .A(state_in), .B( {$clog2(depth){1'b0}} ), .carryout(c), .Sum(nxt_state_in));
+    // Logica de siguiente estado en el pop (en este caso sumo el complemento a 2)
+    addern #(.bits( $clog2(depth) )) nxt_state_out_gen (.carryin(pop), .A(state_out), .B( {$clog2(depth){1'b0}} ), .carryout(d), .Sum(nxt_state_out));
+    // Logica de siguiente estado en el count
+    addern #(.bits( $clog2(depth) )) count_state (.carryin(1'b0), .A( {{$clog2(depth)-1{1'b0}} , push} ), .B( -{{$clog2(depth)-1{1'b0}} , pop} ), .carryout(e), .Sum(nxt_state_count));
+
+    assign pndng = (count > 0)? 1'b1 : 1'b0;
+    assign full = (count == depth && pndng)? 1'b1 : 1'b0;    // Si la cuenta es igual a la profundidad y hay datos pendientes
 
     // Aplico el cambio de estado
     always @(posedge clk or negedge rst) begin
         if (~rst) begin
             state_in <= 0;
+            state_out <= 0;
+            state_count <= 0;
         end
         else begin
-            state_in <= nxt_state_in;
+            if (!full) begin
+                state_in <= nxt_state_in;
+                state_count <= nxt_state_count;
+            end
+
+            if (pndng) begin 
+                state_out <= nxt_state_out;
+                state_count <= nxt_state_count;
+            end
+
         end
     end
 
     // Logica de salida
     // Al ser una maquina de Moore, la salida depende del estado
     assign pointer_in = state_in;
+    assign pointer_out = state_out;
+    assign count = state_count;
 
 endmodule
 

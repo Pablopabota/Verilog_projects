@@ -1,0 +1,192 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1110-g18392a46)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision - 12;
+:vpi_module "C:\iverilog\lib\ivl\system.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\va_math.vpi";
+:vpi_module "C:\iverilog\lib\ivl\v2009.vpi";
+S_0000025854b089b0 .scope package, "$unit" "$unit" 2 1;
+ .timescale 0 0;
+S_0000025854b18120 .scope module, "sugerido1_tb" "sugerido1_tb" 3 4;
+ .timescale -9 -12;
+v0000025854b71160_0 .var "clk", 0 0;
+v0000025854b70f80_0 .var "data1", 2 0;
+v0000025854b708a0_0 .var "data2", 2 0;
+v0000025854b71340_0 .net "data_out", 5 0, v0000025854b70940_0;  1 drivers
+v0000025854b70a80_0 .net "ovrflw", 0 0, v0000025854b70ee0_0;  1 drivers
+v0000025854b713e0_0 .var "rst", 0 0;
+v0000025854b70b20_0 .var "sel", 1 0;
+E_0000025854b075b0 .event posedge, v0000025854b709e0_0;
+S_0000025854b182b0 .scope module, "uut" "sugerido1" 3 15, 4 1 0, S_0000025854b18120;
+ .timescale -9 -12;
+    .port_info 0 /INPUT 3 "i_data1";
+    .port_info 1 /INPUT 3 "i_data2";
+    .port_info 2 /INPUT 2 "i_sel";
+    .port_info 3 /OUTPUT 6 "o_data";
+    .port_info 4 /INPUT 1 "i_rst_n";
+    .port_info 5 /INPUT 1 "clk";
+    .port_info 6 /OUTPUT 1 "o_overflow";
+L_0000025854b71868 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0000025854b08b40_0 .net/2u *"_ivl_0", 0 0, L_0000025854b71868;  1 drivers
+L_0000025854b718f8 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v0000025854b08be0_0 .net/2u *"_ivl_10", 1 0, L_0000025854b718f8;  1 drivers
+v0000025854b18440_0 .net *"_ivl_12", 5 0, L_0000025854b70d00;  1 drivers
+v0000025854b184e0_0 .net *"_ivl_14", 6 0, L_0000025854b120c0;  1 drivers
+L_0000025854b71940 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0000025854ac63d0_0 .net *"_ivl_17", 0 0, L_0000025854b71940;  1 drivers
+v0000025854ac6470_0 .net *"_ivl_18", 6 0, L_0000025854b10ea0;  1 drivers
+v0000025854b715c0_0 .net *"_ivl_2", 3 0, L_0000025854b71480;  1 drivers
+L_0000025854b71988 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0000025854b71020_0 .net *"_ivl_21", 0 0, L_0000025854b71988;  1 drivers
+L_0000025854b718b0 .functor BUFT 1, C4<0>, C4<0>, C4<0>, C4<0>;
+v0000025854b71200_0 .net/2u *"_ivl_4", 0 0, L_0000025854b718b0;  1 drivers
+v0000025854b71660_0 .net *"_ivl_6", 3 0, L_0000025854b70bc0;  1 drivers
+v0000025854b709e0_0 .net "clk", 0 0, v0000025854b71160_0;  1 drivers
+v0000025854b71520_0 .net "data12", 3 0, L_0000025854b70c60;  1 drivers
+v0000025854b71700_0 .net "i_data1", 2 0, v0000025854b70f80_0;  1 drivers
+v0000025854b70da0_0 .net "i_data2", 2 0, v0000025854b708a0_0;  1 drivers
+v0000025854b70e40_0 .net "i_rst_n", 0 0, v0000025854b713e0_0;  1 drivers
+v0000025854b710c0_0 .net "i_sel", 1 0, v0000025854b70b20_0;  1 drivers
+v0000025854b717a0_0 .var "mux1", 3 0;
+v0000025854b70940_0 .var "o_data", 5 0;
+v0000025854b70ee0_0 .var "o_overflow", 0 0;
+v0000025854b712a0_0 .net "sum", 6 0, L_0000025854b11bc0;  1 drivers
+E_0000025854b074f0/0 .event negedge, v0000025854b70e40_0;
+E_0000025854b074f0/1 .event posedge, v0000025854b709e0_0;
+E_0000025854b074f0 .event/or E_0000025854b074f0/0, E_0000025854b074f0/1;
+E_0000025854b075f0 .event anyedge, v0000025854b710c0_0, v0000025854b70da0_0, v0000025854b71520_0, v0000025854b71700_0;
+L_0000025854b71480 .concat [ 3 1 0 0], v0000025854b70f80_0, L_0000025854b71868;
+L_0000025854b70bc0 .concat [ 3 1 0 0], v0000025854b708a0_0, L_0000025854b718b0;
+L_0000025854b70c60 .arith/sum 4, L_0000025854b71480, L_0000025854b70bc0;
+L_0000025854b70d00 .concat [ 4 2 0 0], v0000025854b717a0_0, L_0000025854b718f8;
+L_0000025854b120c0 .concat [ 6 1 0 0], L_0000025854b70d00, L_0000025854b71940;
+L_0000025854b10ea0 .concat [ 6 1 0 0], v0000025854b70940_0, L_0000025854b71988;
+L_0000025854b11bc0 .arith/sum 7, L_0000025854b120c0, L_0000025854b10ea0;
+    .scope S_0000025854b182b0;
+T_0 ;
+    %wait E_0000025854b075f0;
+    %load/vec4 v0000025854b710c0_0;
+    %dup/vec4;
+    %pushi/vec4 0, 0, 2;
+    %cmp/u;
+    %jmp/1 T_0.0, 6;
+    %dup/vec4;
+    %pushi/vec4 1, 0, 2;
+    %cmp/u;
+    %jmp/1 T_0.1, 6;
+    %dup/vec4;
+    %pushi/vec4 2, 0, 2;
+    %cmp/u;
+    %jmp/1 T_0.2, 6;
+    %pushi/vec4 0, 15, 4;
+    %assign/vec4 v0000025854b717a0_0, 0;
+    %jmp T_0.4;
+T_0.0 ;
+    %pushi/vec4 0, 0, 1;
+    %load/vec4 v0000025854b70da0_0;
+    %concat/vec4; draw_concat_vec4
+    %assign/vec4 v0000025854b717a0_0, 0;
+    %jmp T_0.4;
+T_0.1 ;
+    %load/vec4 v0000025854b71520_0;
+    %assign/vec4 v0000025854b717a0_0, 0;
+    %jmp T_0.4;
+T_0.2 ;
+    %pushi/vec4 0, 0, 1;
+    %load/vec4 v0000025854b71700_0;
+    %concat/vec4; draw_concat_vec4
+    %assign/vec4 v0000025854b717a0_0, 0;
+    %jmp T_0.4;
+T_0.4 ;
+    %pop/vec4 1;
+    %jmp T_0;
+    .thread T_0, $push;
+    .scope S_0000025854b182b0;
+T_1 ;
+    %wait E_0000025854b074f0;
+    %load/vec4 v0000025854b70e40_0;
+    %inv;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_1.0, 8;
+    %pushi/vec4 0, 0, 6;
+    %assign/vec4 v0000025854b70940_0, 0;
+    %pushi/vec4 0, 0, 1;
+    %assign/vec4 v0000025854b70ee0_0, 0;
+    %jmp T_1.1;
+T_1.0 ;
+    %load/vec4 v0000025854b712a0_0;
+    %parti/s 6, 0, 2;
+    %assign/vec4 v0000025854b70940_0, 0;
+    %load/vec4 v0000025854b712a0_0;
+    %parti/s 1, 6, 4;
+    %assign/vec4 v0000025854b70ee0_0, 0;
+    %load/vec4 v0000025854b712a0_0;
+    %parti/s 1, 6, 4;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_1.2, 8;
+    %vpi_call/w 4 41 "$display", "[%g] Ocurre overflow", $time {0 0 0};
+T_1.2 ;
+T_1.1 ;
+    %jmp T_1;
+    .thread T_1;
+    .scope S_0000025854b18120;
+T_2 ;
+    %vpi_call/w 3 27 "$dumpfile", "Ejercicio1_tb.vcd" {0 0 0};
+    %vpi_call/w 3 28 "$dumpvars", 32'sb00000000000000000000000000000000, S_0000025854b18120 {0 0 0};
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v0000025854b70f80_0, 0, 3;
+    %pushi/vec4 0, 0, 3;
+    %store/vec4 v0000025854b708a0_0, 0, 3;
+    %pushi/vec4 0, 0, 2;
+    %store/vec4 v0000025854b70b20_0, 0, 2;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000025854b71160_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0000025854b713e0_0, 0, 1;
+    %end;
+    .thread T_2;
+    .scope S_0000025854b18120;
+T_3 ;
+    %delay 1000, 0;
+    %load/vec4 v0000025854b71160_0;
+    %nor/r;
+    %store/vec4 v0000025854b71160_0, 0, 1;
+    %jmp T_3;
+    .thread T_3;
+    .scope S_0000025854b18120;
+T_4 ;
+    %wait E_0000025854b075b0;
+    %pushi/vec4 1, 0, 3;
+    %store/vec4 v0000025854b70f80_0, 0, 3;
+    %pushi/vec4 1, 0, 3;
+    %store/vec4 v0000025854b708a0_0, 0, 3;
+    %pushi/vec4 1, 0, 2;
+    %store/vec4 v0000025854b70b20_0, 0, 2;
+    %vpi_call/w 3 43 "$display", "[%g] o_data: %d | o_overflow: %d", $time, v0000025854b71340_0, v0000025854b70a80_0 {0 0 0};
+    %vpi_func 3 44 "$time" 64 {0 0 0};
+    %cmpi/u 100, 0, 64;
+    %flag_or 5, 4; GT is !LE
+    %flag_inv 5;
+    %jmp/0xz  T_4.0, 5;
+    %vpi_call/w 3 44 "$finish" {0 0 0};
+T_4.0 ;
+    %vpi_func 3 45 "$time" 64 {0 0 0};
+    %cmpi/u 0, 0, 64;
+    %flag_or 5, 4; GT is !LE
+    %flag_inv 5;
+    %jmp/0xz  T_4.2, 5;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0000025854b713e0_0, 0, 1;
+T_4.2 ;
+    %jmp T_4;
+    .thread T_4;
+# The file index is used to find the file name in the following table.
+:file_names 5;
+    "N/A";
+    "<interactive>";
+    "-";
+    "Ejercicio1_tb.v";
+    "./Ejercicio1.v";
