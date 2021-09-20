@@ -1,0 +1,35 @@
+`include "d_ff.v"
+
+module data_delay #(
+    parameter DELAY = 4,    // Cantidad de ciclos de retardo
+    parameter BITS = 8     // Tamaño de los datos a retardar
+)(
+    input                   i_clk,
+    input                   i_rst,
+    input       [BITS-1:0]  i_Din,  // Palabra a la entrada
+    output reg  [DELAY-1:0] [BITS-1:0]  o_Dout // Tengo una palabra por cada ciclo de retardo
+);
+
+    genvar index;
+    generate
+        for (index = 0; index < DELAY; index = index + 1) begin
+            if (index == 0) begin
+                d_ff #(.BITS(BITS)) u_dff (
+                    .i_Din(i_Din),
+                    .i_clk(i_clk),
+                    .i_rst(i_rst),
+                    .o_Dout(o_Dout[index])
+                );
+            end
+            else begin
+                d_ff #(.BITS(BITS)) u_dff (
+                    .i_Din(o_Dout[index-1]),
+                    .i_clk(i_clk),
+                    .i_rst(i_rst),
+                    .o_Dout(o_Dout[index])
+                    );               
+            end
+        end
+    endgenerate
+
+endmodule
