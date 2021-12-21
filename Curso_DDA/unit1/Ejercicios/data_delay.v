@@ -12,23 +12,29 @@ module data_delay #(
 );
 
     wire [(DELAY * BITS)-1:0] data_scale;
-    
-    assign data_scale = o_Dout;
+
+    assign o_Dout = data_scale;
 
     genvar index;
     generate
         for (index = 0; index <= DELAY-1; index = index + 1) begin
             if (index == 0) begin
-                d_ff #(.BITS(BITS)) u_dff (
+                d_ff #(
+                    .BITS(BITS),
+                    .DEBUG(0)
+                ) u_dff (
                     .i_Din(i_Din),
                     .i_clk(i_clk),
                     .i_rst(i_rst),
                     // .o_Dout(o_Dout[index])  // Para IC
-                    .o_Dout(data_scale[(index+1)*BITS-1:index*BITS])  // Para FPGA
+                    .o_Dout(data_scale[BITS-1:0])  // Para FPGA
                 );
             end
             else begin
-                d_ff #(.BITS(BITS)) u_dff (
+                d_ff #(
+                    .BITS(BITS),
+                    .DEBUG(index)
+                ) u_dff (
                     .i_Din(data_scale[index*BITS-1:(index-1)*BITS]),
                     .i_clk(i_clk),
                     .i_rst(i_rst),
