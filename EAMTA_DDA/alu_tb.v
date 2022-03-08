@@ -39,46 +39,47 @@ module alu_tb;
         $monitor("op: %d | in1: %d | in2: %d | out: %d | zero: %d | err: %d", op_tb, in1_tb, in2_tb, out_tb, zero_tb, error_tb);
 
         // Inicializo entradas
+        clk_tb = 0;
         in1_tb = 0;
         in2_tb = 0;
         op_tb = 0;
         invalid_data_tb = 0;
 
-        #1  // Suma
-        in1_tb = $random;
-        in2_tb = $random;
-        op_tb = 0;
-        invalid_data_tb = 0;
+        // #1  // Suma
+        // in1_tb = $random;
+        // in2_tb = $random;
+        // op_tb = 0;
+        // invalid_data_tb = 0;
 
-        #1  // Resta
-        in1_tb = $random;
-        in2_tb = $random;
-        op_tb = 1;
-        invalid_data_tb = 0;
+        // #1  // Resta
+        // in1_tb = $random;
+        // in2_tb = $random;
+        // op_tb = 1;
+        // invalid_data_tb = 0;
 
-        #1  // Multiplicacion
-        in1_tb = $random;
-        in2_tb = $random;
-        op_tb = 2;
-        invalid_data_tb = 0;
+        // #1  // Multiplicacion
+        // in1_tb = $random;
+        // in2_tb = $random;
+        // op_tb = 2;
+        // invalid_data_tb = 0;
 
-        #1  // Division: correcta
-        in1_tb = $random;
-        in2_tb = $random;
-        op_tb = 3;
-        invalid_data_tb = 0;
+        // #1  // Division: correcta
+        // in1_tb = $random;
+        // in2_tb = $random;
+        // op_tb = 3;
+        // invalid_data_tb = 0;
 
-        #1  // Division: dividido 0
-        in1_tb = $random;
-        in2_tb = 0;
-        op_tb = 3;
-        invalid_data_tb = 0;
+        // #1  // Division: dividido 0
+        // in1_tb = $random;
+        // in2_tb = 0;
+        // op_tb = 3;
+        // invalid_data_tb = 0;
 
-        #1  // Division: datos invalidos
-        in1_tb = $random;
-        in2_tb = $random;
-        op_tb = 3;
-        invalid_data_tb = 1;
+        // #1  // Division: datos invalidos
+        // in1_tb = $random;
+        // in2_tb = $random;
+        // op_tb = 3;
+        // invalid_data_tb = 1;
 
         // #10
         // $finish;
@@ -94,7 +95,7 @@ module alu_tb;
         else begin
             in1_tb = $random;
             in2_tb = $random;
-            op_tb = $random;
+            op_tb = $urandom % 4;
         end
     end
 
