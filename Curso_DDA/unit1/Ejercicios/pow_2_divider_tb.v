@@ -8,7 +8,7 @@ module pow_2_divider_tb;
     reg i_clk;
     reg [`BITS-1:0] i_Din;
     // reg [`BITS-1:0] o_Dout; // Para IC
-    reg [`BITS-1:0] o_Dout;  // Para FPGA
+    wire [`BITS-1:0] o_Dout;  // Para FPGA
 
     pow_2_divider #(
         .DIVIDE(`DIVIDE),
