@@ -1,26 +1,27 @@
 `include "../MEM/memory.v"
 `include "../MEM/pc_register.v"
-
 `include "../MUX/mux.v"
-
 `include "../SUM/adder.v"
 
 `define WORD_SIZE 32
 
-`define PC_SIZE 2*`WORD_SIZE
+//`define PC_SIZE 2*`WORD_SIZE
+`define PC_SIZE 32
 `define INS_MEM_SIZE `WORD_SIZE
 
 module inst_fetch (
     input       [`PC_SIZE-1:0]                  i_mem_pc,
     input                                       i_ctrl_mux_if,
+    input                                       i_clk,
+    input                                       i_rst,
     output reg  [`PC_SIZE+`INS_MEM_SIZE-1:0]    o_if_id_reg
 );
 
     // INSTRUCTION FETCH SIDE
-    wire [`PC_SIZE-1:0] mux_if_0;
-    wire [`PC_SIZE-1:0] mux_if_out;
-    wire [`PC_SIZE-1:0] pc;
-    wire [`INS_MEM_SIZE-1:0] ins_bus;
+    wire [`PC_SIZE-1:0] mux_if_0;       // Entrada 0 del mux IF
+    wire [`PC_SIZE-1:0] mux_if_out;     // Salida del mux IF
+    wire [`PC_SIZE-1:0] pc;             // Valor del PC
+    wire [`INS_MEM_SIZE-1:0] ins_bus;   // Instruccion leida de la memoria de instruccion
     
     adder_nbits #(
         .BITS(`PC_SIZE)
@@ -47,13 +48,12 @@ module inst_fetch (
         ) mux_if (
             .os(i_ctrl_mux_if),
             .data_0(mux_if_0),
-            .data_1(mem_pc),
+            .data_1(i_mem_pc),
             .data_out(mux_if_out)
     );
     
     memory #(
-        .ADDRESS_SIZE(`PC_SIZE),
-        .WORD_SIZE(`INS_MEM_SIZE)
+        .ADDRESS_SIZE(`PC_SIZE)
         ) ins_mem (
             .i_address(pc),
             .i_data_in({32{1'bz}}),
@@ -65,11 +65,11 @@ module inst_fetch (
     
     always @(posedge i_clk or negedge i_rst) begin
         if (!i_rst) begin
-            if_id_reg = { (`PC_SIZE+`INS_MEM_SIZE){1'b0} };
+            o_if_id_reg = { (`PC_SIZE+`INS_MEM_SIZE){1'b0} };
         end
         else begin
-            if_id_reg[(`PC_SIZE+`INS_MEM_SIZE)-1:`INS_MEM_SIZE] = pc;
-            if_id_reg[`INS_MEM_SIZE-1:0] = ins_bus;
+            o_if_id_reg[(`PC_SIZE+`INS_MEM_SIZE)-1:`INS_MEM_SIZE] = pc;
+            o_if_id_reg[`INS_MEM_SIZE-1:0] = ins_bus;
         end 
     end
 

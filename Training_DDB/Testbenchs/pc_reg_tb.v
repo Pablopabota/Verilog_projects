@@ -1,11 +1,11 @@
 `timescale 100ns/10ns
-`include "../MEM/flip-flops.v"
-`define WORD_SIZE 8
+`include "../MEM/pc_register.v"
+`define WORD_SIZE 32
 
 module pc_reg_tb;
 
-    reg [`WORD_SIZE-1:0] data_in_tb;
     reg rst_tb;
+    reg [`WORD_SIZE-1:0] data_in_tb;
     reg cs_tb;
     reg we_tb;
     reg oe_tb;
@@ -40,18 +40,18 @@ module pc_reg_tb;
         cs_tb = 1;
         we_tb = 1;
         oe_tb = 1;
-
+        
+        #5 rst_tb = !rst_tb;
     end
 
     always #1 clk_tb = !clk_tb;
-    always #3 data_in_tb = $random%( 2**`WORD_SIZE );
+    always #3 data_in_tb = $random;
 //    always #3 data_in_tb = data_in_tb + 4;
-    always #10 rst_tb = !rst_tb;
-    always #13 oe_tb = !oe_tb;
+    always #5 oe_tb = !oe_tb;
 
     always @(*) begin
         if ($time > 100) begin
-            $finish;
+//            $finish;
         end        
     end
 
