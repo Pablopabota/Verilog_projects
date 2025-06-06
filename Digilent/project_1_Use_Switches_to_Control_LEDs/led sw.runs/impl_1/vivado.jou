@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Thu Feb 27 02:10:23 2025
+# Process ID: 17836
+# Current directory: C:/Users/Asus/Vivado/led sw/led sw.runs/impl_1
+# Command line: vivado.exe -log led_sw.vdi -applog -product Vivado -messageDb vivado.pb -mode batch -source led_sw.tcl -notrace
+# Log file: C:/Users/Asus/Vivado/led sw/led sw.runs/impl_1/led_sw.vdi
+# Journal file: C:/Users/Asus/Vivado/led sw/led sw.runs/impl_1\vivado.jou
+#-----------------------------------------------------------
+source led_sw.tcl -notrace

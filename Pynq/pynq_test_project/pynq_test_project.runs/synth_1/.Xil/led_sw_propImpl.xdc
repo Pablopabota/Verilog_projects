@@ -1,0 +1,5 @@
+set_property SRC_FILE_INFO {cfile:{C:/Users/Asus/OneDrive/Documentos/GitHub/Verilog_projects/Pynq/pynq_test_project/pynq_test_project.srcs/constrs_1/imports/Verilog_projects/PYNQ-Z2 v1.0.xdc} rfile:{../../../pynq_test_project.srcs/constrs_1/imports/Verilog_projects/PYNQ-Z2 v1.0.xdc} id:1} [current_design]
+set_property src_info {type:XDC file:1 line:13 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN M20   IOSTANDARD LVCMOS33 } [get_ports { sw }]; #IO_L7N_T1_AD2N_35 Sch=sw[0]
+set_property src_info {type:XDC file:1 line:28 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN R14   IOSTANDARD LVCMOS33 } [get_ports { led }]; #IO_L6N_T0_VREF_34 Sch=led[0]
