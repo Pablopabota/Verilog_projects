@@ -1,0 +1,13 @@
+set_property SRC_FILE_INFO {cfile:{C:/Users/Asus/OneDrive/Documentos/GitHub/Verilog_projects/Pynq/fsm_semaforo/fsm_semaforo.srcs/constrs_1/imports/Verilog_projects/PYNQ-Z2 v1.0.xdc} rfile:{../../../fsm_semaforo.srcs/constrs_1/imports/Verilog_projects/PYNQ-Z2 v1.0.xdc} id:1} [current_design]
+set_property src_info {type:XDC file:1 line:8 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN H16   IOSTANDARD LVCMOS33 } [get_ports { clk }]; #IO_L13P_T2_MRCC_35 Sch=sysclk
+set_property src_info {type:XDC file:1 line:17 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict {PACKAGE_PIN M20 IOSTANDARD LVCMOS33} [get_ports rst]
+set_property src_info {type:XDC file:1 line:22 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict {PACKAGE_PIN L15 IOSTANDARD LVCMOS33} [get_ports {color[0]}]
+set_property src_info {type:XDC file:1 line:23 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict {PACKAGE_PIN G17 IOSTANDARD LVCMOS33} [get_ports {color[1]}]
+set_property src_info {type:XDC file:1 line:24 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict {PACKAGE_PIN N15 IOSTANDARD LVCMOS33} [get_ports {color[2]}]
+set_property src_info {type:XDC file:1 line:42 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN D19   IOSTANDARD LVCMOS33 } [get_ports { btn0 }]; #IO_L4P_T0_35 Sch=btn[0]
