@@ -45,7 +45,7 @@ module tb_start_stop_detector;
   endtask
 
   // Tarea para simular bits de datos (no afectan START/STOP)
-  task simulate_data(int bits = 8);
+  task simulate_data(input int bits = 8);
     integer i;
     begin
       for (i = 0; i < bits; i++) begin
